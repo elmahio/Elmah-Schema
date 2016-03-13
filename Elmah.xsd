@@ -46,7 +46,9 @@
 	<xs:attribute name="connectionString" type="xs:string" />
 	<xs:attribute name="connectionStringName" type="xs:string" />
 	<xs:attribute name="providerName" type="xs:string" />
-	<xs:attribute name="applicationName"  type="xs:string" />
+  <xs:attribute name="applicationName"  type="xs:string" />
+  <xs:attribute name="LogId"  type="xs:string" />
+  <xs:attribute name="LogIdKey"  type="xs:string" />
   </xs:complexType>
   <xs:simpleType name="errorLogType">
 	<xs:restriction base="xs:string">
@@ -56,8 +58,9 @@
 	  <xs:enumeration value="Elmah.AccessErrorLog, Elmah" />
 	  <xs:enumeration value="Elmah.OracleErrorLog, Elmah" />
 	  <xs:enumeration value="Elmah.SQLiteErrorLog, Elmah" />
-	  <xs:enumeration value="Elmah.VistaDBErrorLog, Elmah" />
-	</xs:restriction>
+    <xs:enumeration value="Elmah.VistaDBErrorLog, Elmah" />
+    <xs:enumeration value="Elmah.Io.ErrorLog, Elmah.Io" />
+  </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="errorLogTypeEx">
 	<xs:union memberTypes="tns:errorLogType xs:string"/>
