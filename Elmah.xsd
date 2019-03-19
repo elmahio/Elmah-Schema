@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://Elmah.Configuration" elementFormDefault="qualified" targetNamespace="http://Elmah.Configuration" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="elmah">
     <xs:complexType>
       <xs:all>
-        <xs:element name="security" type="tns:securityCT" minOccurs="0" maxOccurs="1" />
-        <xs:element name="errorMail" type="tns:errorMailCT" minOccurs="0" maxOccurs="1" />
-        <xs:element name="errorLog" type="tns:errorLogCT" minOccurs="0" maxOccurs="1" />
-        <xs:element name="errorFilter" type="tns:errorFilterCT" minOccurs="0" maxOccurs="1" />
+        <xs:element name="security" type="securityCT" minOccurs="0" maxOccurs="1" />
+        <xs:element name="errorMail" type="errorMailCT" minOccurs="0" maxOccurs="1" />
+        <xs:element name="errorLog" type="errorLogCT" minOccurs="0" maxOccurs="1" />
+        <xs:element name="errorFilter" type="errorFilterCT" minOccurs="0" maxOccurs="1" />
       </xs:all>
     </xs:complexType>
   </xs:element>
@@ -36,15 +34,17 @@
     <xs:attribute name="useSsl" type="xs:boolean" />
   </xs:complexType>
   <xs:complexType name="errorLogCT">
-    <xs:attribute name="type" type="tns:errorLogTypeEx" use="required" />
+    <xs:attribute name="type" type="errorLogTypeEx" use="required" />
     <xs:attribute name="size" type="xs:int" />
     <xs:attribute name="logPath" type="xs:string" />
     <xs:attribute name="connectionString" type="xs:string" />
     <xs:attribute name="connectionStringName" type="xs:string" />
     <xs:attribute name="providerName" type="xs:string" />
     <xs:attribute name="applicationName"  type="xs:string" />
-    <xs:attribute name="LogId"  type="xs:string" />
-    <xs:attribute name="LogIdKey"  type="xs:string" />
+    <xs:attribute name="logId"  type="xs:string" />
+    <xs:attribute name="logIdKey"  type="xs:string" />
+    <xs:attribute name="apiKey"  type="xs:string" />
+    <xs:attribute name="apiKeyKey"  type="xs:string" />
   </xs:complexType>
   <xs:simpleType name="errorLogType">
     <xs:restriction base="xs:string">
@@ -55,42 +55,41 @@
       <xs:enumeration value="Elmah.OracleErrorLog, Elmah" />
       <xs:enumeration value="Elmah.SQLiteErrorLog, Elmah" />
       <xs:enumeration value="Elmah.VistaDBErrorLog, Elmah" />
-      <xs:enumeration value="Elmah.Io.ErrorLog, Elmah.Io" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="errorLogTypeEx">
-    <xs:union memberTypes="tns:errorLogType xs:string"/>
+    <xs:union memberTypes="errorLogType xs:string"/>
   </xs:simpleType>
   <xs:complexType name="errorFilterCT">
     <xs:sequence minOccurs="0" maxOccurs="1">
-      <xs:element name="test" type="tns:testType" />
+      <xs:element name="test" type="testType" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="testType">
     <xs:choice minOccurs="1" maxOccurs="unbounded">
-      <xs:group ref="tns:assertionGroup" />
+      <xs:group ref="assertionGroup" />
     </xs:choice>
   </xs:complexType>
   <xs:group name="assertionGroup">
     <xs:choice>
-      <xs:element name="equal" type="tns:valueCheck" minOccurs="0" maxOccurs="unbounded" />
-      <xs:element name="not-equal" type="tns:valueCheck" minOccurs="0" maxOccurs="unbounded" />
-      <xs:element name="greater" type="tns:valueCheck" minOccurs="0" maxOccurs="unbounded" />
-      <xs:element name="greater-or-equal " type="tns:valueCheck" minOccurs="0" maxOccurs="unbounded" />
-      <xs:element name="lesser" type="tns:valueCheck" minOccurs="0" maxOccurs="unbounded" />
-      <xs:element name="lesser-or-equal" type="tns:valueCheck" minOccurs="0" maxOccurs="unbounded" />
-      <xs:element name="is-type" type="tns:typeCheck" minOccurs="0" maxOccurs="unbounded" />
-      <xs:element name="is-type-compatible" type="tns:typeCheck" minOccurs="0" maxOccurs="unbounded" />
-      <xs:element name="regex" type="tns:regexCheck" minOccurs="0" maxOccurs="unbounded" />
-      <xs:element name="jscript" type="tns:jscriptAssertion" minOccurs="0" maxOccurs="unbounded" />
-      <xs:element name="or" type="tns:compositeAssertion" minOccurs="0" maxOccurs="unbounded" />
-      <xs:element name="and" type="tns:compositeAssertion" minOccurs="0" maxOccurs="unbounded" />
-      <xs:element name="not" type="tns:compositeAssertion" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="equal" type="valueCheck" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="not-equal" type="valueCheck" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="greater" type="valueCheck" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="greater-or-equal " type="valueCheck" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="lesser" type="valueCheck" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="lesser-or-equal" type="valueCheck" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="is-type" type="typeCheck" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="is-type-compatible" type="typeCheck" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="regex" type="regexCheck" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="jscript" type="jscriptAssertion" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="or" type="compositeAssertion" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="and" type="compositeAssertion" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="not" type="compositeAssertion" minOccurs="0" maxOccurs="unbounded" />
     </xs:choice>
   </xs:group>
   <xs:complexType name="compositeAssertion">
     <xs:choice minOccurs="1" maxOccurs="unbounded">
-      <xs:group ref="tns:assertionGroup" />
+      <xs:group ref="assertionGroup" />
     </xs:choice>
   </xs:complexType>
   <xs:complexType name="jscriptAssertion">
@@ -99,13 +98,13 @@
     </xs:all>
   </xs:complexType>
   <xs:complexType name="valueCheck">
-    <xs:attribute name="binding" type="tns:bindingExpressionEx" >
+    <xs:attribute name="binding" type="bindingExpressionEx" >
       <xs:annotation>
         <xs:documentation>Same expression and syntax you specify to the Eval method when data-binding within the server-side markup of ASP.NET pages and user controls.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="value" type="xs:string" />
-    <xs:attribute name="type" type="tns:typeCodeEx" />
+    <xs:attribute name="type" type="typeCodeEx" />
   </xs:complexType>
   <xs:complexType name="typeCheck">
     <xs:attribute name="binding" type="xs:string" />
@@ -127,7 +126,7 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="bindingExpressionEx">
-    <xs:union memberTypes="tns:bindingExpression xs:string"/>
+    <xs:union memberTypes="bindingExpression xs:string"/>
   </xs:simpleType>
   <xs:simpleType name="typeCode">
     <xs:restriction base="xs:string">
@@ -152,6 +151,5 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="typeCodeEx">
-    <xs:union memberTypes="tns:typeCode xs:string"/>
+    <xs:union memberTypes="typeCode xs:string"/>
   </xs:simpleType>
-</xs:schema>
