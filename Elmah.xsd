@@ -10,10 +10,6 @@
       </xs:all>
     </xs:complexType>
   </xs:element>
-  <xs:element name="security" type="tns:securityCT" />
-  <xs:element name="errorMail" type="tns:errorMailCT" />
-  <xs:element name="errorLog" type="tns:errorLogCT" />
-  <xs:element name="errorFilter" type="tns:errorFilterCT" />
   <xs:complexType name="securityCT">
     <xs:attribute name="allowRemoteAccess" use="optional" type="xs:boolean" />
   </xs:complexType>
