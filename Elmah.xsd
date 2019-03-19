@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://Elmah.Configuration" elementFormDefault="qualified" targetNamespace="http://Elmah.Configuration" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="elmah">
     <xs:complexType>
       <xs:all>
@@ -153,3 +155,4 @@
   <xs:simpleType name="typeCodeEx">
     <xs:union memberTypes="typeCode xs:string"/>
   </xs:simpleType>
+</xs:schema>
